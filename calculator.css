@@ -8,6 +8,7 @@
     width: 100%;
     display: flex;
     justify-content: center;
+    align-items:center;
     background: linear-gradient(rgb(215, 215, 215) , rgb(255, 255, 255));
     height: min-content;
     background-repeat: no-repeat;
