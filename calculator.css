@@ -1,0 +1,63 @@
+*{
+    margin: 0%;
+    padding: 0%;
+    box-sizing: border-box;
+  }
+
+  body{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background: linear-gradient(rgb(215, 215, 215) , rgb(255, 255, 255));
+    height: min-content;
+    background-repeat: no-repeat;
+    
+  }
+
+  .container{ 
+    background-color: rgb(20, 12, 2);
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px black;
+    margin-top: 25px;
+  }
+
+  input{
+    width: 100%;
+    padding: 40px 35px 40px 0px;
+    font-size: 25px;
+    color: white;
+    background-color: rgb(20, 12, 2);
+    text-align: end;
+    border: transparent;
+   border-bottom: 1px solid rgba(128, 128, 128, 0.355);
+  }
+  ::placeholder{
+    font-size: 25px;
+    text-align: end;
+    color: white;
+  }
+
+  .main-container{
+    margin: 15px 20px;
+  }
+  .main-container p{
+    display: flex;
+    justify-content: space-evenly;
+   
+  }
+  p button{
+    height: 60px;
+    width: 60px;
+    margin: 10px 0px;
+    border-radius: 30%;
+    font-size: 25px;
+    background-color:rgb(49, 49, 49) ;
+    color: white;
+    box-shadow: 0px 0px 15px black;
+    border: none;
+  }
+
+  .equal-sign{
+    background-color: rgb(238, 158, 10);
+  }

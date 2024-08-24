@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculator</title>
+  <link rel="stylesheet" href="calculator.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+  <body>
+    <div class="container">
+
+      <div class="container-cal">
+        <div class="input-container">
+          <p>
+            <input  placeholder="0" class="js-calculation js-sum "   > 
+          </p>
+        </div>
+
+        <div class="main-container">
+        <p>
+          <button class="js-numbers"  onclick="
+          
+          updatedCalculation('1');
+          ">1</button>
+    
+          <button onclick="
+            updatedCalculation('2');
+          ">2</button>
+    
+          <button onclick="
+             updatedCalculation('3');
+          ">3</button>
+    
+          <button onclick="
+            updatedCalculationForSymbols('+');
+          
+          "><i class="fa fa-plus" style="font-size: 20px; color: darkorange;"></i></button>
+         </p> 
+
+        <p>
+          <button onclick="
+            updatedCalculation('4');
+          ">4</button>
+    
+          <button onclick="
+             updatedCalculation('5');
+          ">5</button>
+    
+          <button onclick="
+             updatedCalculation('6');
+          ">6</button>
+    
+          <button onclick="
+            updatedCalculationForSymbols('-');
+          
+          "><i class="fa fa-minus" style="font-size: 20px; color: darkorange;"></i></button>
+        </p>
+    
+        <p>
+          <button onclick="
+            updatedCalculation('7');
+          ">7</button>
+    
+          <button onclick="
+           updatedCalculation('8');
+          ">8</button>
+    
+          <button onclick="
+            updatedCalculation('9');
+          ">9</button>
+    
+          <button onclick="
+             updatedCalculationForSymbols('*');
+            
+          "><i class="fa fa-xmark" style="font-size: 20px; color: darkorange;"></i></button>
+        </p>
+    
+        <p>
+        <button onclick="
+          
+          updatedCalculationZero();
+          
+         ">0</button>
+  
+        <button onclick="
+          updatedCalculation('.');
+         ">.</button>
+  
+        <button class="equal-sign" onclick="
+          
+          updatedCalculationEqual();
+
+         "><i class="fa fa-equals" style="font-size: 20px; color:white;"></i></button>
+  
+        <button onclick="
+       
+          updatedCalculationForSymbols('/');
+        
+          "><i class="fa fa-divide" style="font-size: 20px; color: darkorange;"></i></button>
+        </p>
+    
+        <p>
+
+        <button onclick="
+            
+            calculation = '';
+            document.querySelector('.js-calculation').value= calculation;
+           
+          " style="color: darkorange;">C</button>
+
+        <button onclick="
+            if(calculation!=='0' && calculation!==''){
+              calculation = calculation/100;
+              document.querySelector('.js-calculation').value= calculation;
+            }
+
+          "><i class="fa-solid fa-percent" style="color: darkorange;"></i></button>
+
+        <button onclick="
+
+            removeLastMove()
+
+          "><i class="fa-solid fa-delete-left" style="font-size: 20px; color: darkorange;"></i></button>
+
+        <button onclick=" 
+
+            removeMovesAfterSymbol();
+
+          " style="font-size: 20px; color: darkorange;">CE</button>
+
+        </p>   
+        </div>
+      </div>
+
+    </div>  
+
+
+<script >
+
+  let calculation = '';
+
+  document.addEventListener('keydown', (event)=>{
+
+      if(event.key==='1'||event.key==='2'||event.key==='3'||event.key==='4'||event.key==='5'||event.key==='6'||event.key==='7'||event.key==='8'||event.key==='9'||event.key==='.'){
+         updatedCalculation(event.key)
+      }else if(event.key==='0'){
+         updatedCalculationZero()
+      }else if(event.key==='Enter'){
+         updatedCalculationEqual()
+      }else if(event.key==='+'||event.key==='-'||event.key==='*'||event.key==='/'){
+         updatedCalculationForSymbols(event.key)
+      }else if(event.key==='Backspace'){
+         removeLastMove()
+      }
+      
+  })
+
+  function updatedCalculation(unit){
+    if(calculation==='0'){
+      calculation = unit
+    }else{
+      calculation = calculation + unit;
+    }
+
+    document.querySelector('.js-calculation').value= calculation;
+  };
+
+  function updatedCalculationZero(){
+    if(calculation==='0+0'){
+      calculation = '0+0'
+    }else if(calculation==='0'){
+      calculation = '0'
+    }else{
+      calculation = calculation + '0';
+    }
+    document.querySelector('.js-calculation').value= calculation;
+  };
+
+  function updatedCalculationForSymbols(unit){
+
+      calculationArray = calculation.split('');
+      for(let i=0;i<calculationArray.length; i++){
+          if(calculationArray[calculationArray.length-1]==='+'||calculationArray[calculationArray.length-1]==='-'||calculationArray[calculationArray.length-1]==='*'||calculationArray[calculationArray.length-1]==='/'){
+            calculationArray.splice(calculationArray.length-1,1)
+          }
+        }
+        let newCalculation = ''
+        calculationArray.forEach((value)=>{
+              newCalculation+=value;
+          })
+        calculation=newCalculation
+
+        if(calculation!==''){
+          calculation = `${eval(calculation)}`;
+          document.querySelector('.js-sum').value = calculation;
+        }
+
+        if(calculation!==''){
+          calculation = calculation + unit;
+        }else if(calculation===''){
+          calculation= '0'+ unit
+        }
+        document.querySelector('.js-calculation').value= calculation;
+
+  };
+
+  function removeLastMove(){
+       
+       let calculationArray = calculation.split('');
+       const calculationArrayLength = calculationArray.length
+       calculationArray.map(()=>{
+           calculationArray.splice(calculationArrayLength-1 , 1);
+       })
+
+       let newCalculation='';
+       calculationArray.forEach((value)=>{
+       newCalculation+=value;
+      })
+       calculation=newCalculation;
+
+       document.querySelector('.js-calculation').value= calculation;
+   }
+
+  function removeMovesAfterSymbol(){
+        let calculationArray = calculation.split('');
+        let newCalculationArray = [];
+        for(let i=0;i<calculation.length;i++){
+        if(calculationArray[i]==='+' || calculationArray[i]==='-' || calculationArray[i]==='/' || calculationArray[i]==='*'){
+            break
+        }else{
+            newCalculationArray.push(calculationArray[i])
+        }
+      }
+        let newCalculation = '';
+        newCalculationArray.forEach((value)=>{
+            newCalculation+=value
+        })
+        calculation=newCalculation
+
+        document.querySelector('.js-calculation').value= calculation;
+        
+    }
+
+  function updatedCalculationEqual(){
+    if(calculation!==''){
+      calculation = `${eval(calculation)}`;
+      document.querySelector('.js-sum').value = calculation;
+    }
+
+  }
+
+</script>
+    
+</body>
+</html>
