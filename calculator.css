@@ -6,11 +6,10 @@
 
   body{
     width: 100%;
-    height:100vh;
     display: flex;
     justify-content: center;
-    align-items:center;
     background: linear-gradient(rgb(215, 215, 215) , rgb(255, 255, 255));
+    height: min-content;
     background-repeat: no-repeat;
     
   }
@@ -20,6 +19,7 @@
     overflow: hidden;
     border-radius: 10px;
     box-shadow: 0px 0px 10px black;
+    margin-top: 25px;
   }
 
   input{
@@ -49,7 +49,7 @@
   p button{
     height: 60px;
     width: 60px;
-    margin: 10px 0px;
+    margin: 5px 0px;
     border-radius: 30%;
     font-size: 25px;
     background-color:rgb(49, 49, 49) ;
@@ -58,6 +58,15 @@
     border: none;
   }
 
+  p button:hover{
+    background-color: white;
+    color: black
+  }
+
   .equal-sign{
     background-color: rgb(238, 158, 10);
+  }
+  .equal-sign:hover{
+    background-color: white;
+    color:  rgb(238, 158, 10);
   }
