@@ -84,14 +84,14 @@
          ">0</button>
   
         <button onclick="
-          updatedCalculation('.');
+          updatedCalculationDecimal('.');
          ">.</button>
   
         <button class="equal-sign" onclick="
           
           updatedCalculationEqual();
 
-         "><i class="fa fa-equals" style="font-size: 20px; color:white;"></i></button>
+         "><i class="fa fa-equals" style="font-size: 20px;"></i></button>
   
         <button onclick="
        
@@ -142,16 +142,18 @@
 
   document.addEventListener('keydown', (event)=>{
 
-      if(event.key==='1'||event.key==='2'||event.key==='3'||event.key==='4'||event.key==='5'||event.key==='6'||event.key==='7'||event.key==='8'||event.key==='9'||event.key==='.'){
-         updatedCalculation(event.key)
+      if(event.key==='1'||event.key==='2'||event.key==='3'||event.key==='4'||event.key==='5'||event.key==='6'||event.key==='7'||event.key==='8'||event.key==='9'){
+         updatedCalculation(event.key);
       }else if(event.key==='0'){
-         updatedCalculationZero()
+         updatedCalculationZero();
       }else if(event.key==='Enter'){
-         updatedCalculationEqual()
+         updatedCalculationEqual();
       }else if(event.key==='+'||event.key==='-'||event.key==='*'||event.key==='/'){
          updatedCalculationForSymbols(event.key)
       }else if(event.key==='Backspace'){
-         removeLastMove()
+         removeLastMove();
+      }else if(event.key==='.'){
+        updatedCalculationDecimal(event.key);
       }
       
   })
@@ -225,7 +227,7 @@
   function removeMovesAfterSymbol(){
         let calculationArray = calculation.split('');
         let newCalculationArray = [];
-        for(let i=0;i<calculation.length;i++){
+        for(let i=0;i<calculationArray.length;i++){
         if(calculationArray[i]==='+' || calculationArray[i]==='-' || calculationArray[i]==='/' || calculationArray[i]==='*'){
             break
         }else{
@@ -248,6 +250,50 @@
       document.querySelector('.js-sum').value = calculation;
     }
 
+  }
+
+  function updatedCalculationDecimal(unit){
+    let calculationArray =[];
+    let newCalculationArray=[];
+    let totalDecimal = 0;
+    if(calculation==='' || calculation ==='0'){
+      calculation = '0'+ unit;
+      document.querySelector('.js-calculation').value= calculation;
+    }else{
+
+       calculationArray = calculation.split('');
+       for(let i=0; i<calculationArray.length; i++){
+          if(calculationArray[i]!==unit){
+            newCalculationArray.push(calculationArray[i]);         
+          }else if(calculationArray[i]===unit){
+            newCalculationArray.push(calculationArray[i])
+            totalDecimal++
+          }
+       }
+     for(let j=0;j<newCalculationArray.length;j++){
+      console.log(newCalculationArray[j])
+      if((newCalculationArray[j]==='+' ||newCalculationArray[j]==='-'||newCalculationArray[j]==='*'||newCalculationArray[j]==='/') && totalDecimal<=1){
+            newCalculationArray.push(unit);
+            totalDecimal++
+            console.log(totalDecimal)
+        }
+         if(newCalculationArray[newCalculationArray.length-1]===unit && totalDecimal<=1){
+          newCalculationArray.splice(newCalculationArray.length-1,1)
+          totalDecimal--
+        }
+      }
+     
+      if(totalDecimal<1){
+        newCalculationArray.push(unit);
+      }  
+      let newCalculation = '';
+      newCalculationArray.forEach((value)=>{
+            newCalculation+=value
+      })
+      calculation=newCalculation;
+      document.querySelector('.js-calculation').value= calculation;
+
+    }
   }
 
 </script>
